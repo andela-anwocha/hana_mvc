@@ -133,7 +133,7 @@ View templates are mapped to controller actions and must assume the same nomencl
 
 ### Generators
 The Hana gem can scaffold the project layout for you so that you can quickly get up and running with the project. To do this, follow this steps:  
-1. Install the gem: `gem install hana`
+1. Install the gem: `gem install hana  
 2. Run this command in the directory where you want to start a new project: `hana generate`
 
 ### Servers
