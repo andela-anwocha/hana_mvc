@@ -1,4 +1,4 @@
-crequire "spec_helper"
+require "spec_helper"
 
 describe Hana::Controller do
 

@@ -1,4 +1,4 @@
-dequire 'sqlite3'
+require 'sqlite3'
 
 module Hana
   class Database

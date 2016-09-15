@@ -1,4 +1,4 @@
-rmodule Hana
+module Hana
   module Routing
     class Mapper
       def initialize(endpoints)
