@@ -1,4 +1,4 @@
-# Hana MVC Framework
+# Hana MVC Framework [![Build Status](https://travis-ci.org/andela-anwocha/hana_mvc.svg?branch=develop)](https://travis-ci.org/andela-anwocha/hana_mvc) [![Coverage Status](https://coveralls.io/repos/github/andela-anwocha/hana_mvc/badge.svg?branch=develop)](https://coveralls.io/github/andela-anwocha/hana_mvc?branch=develop) [![Code Climate](https://codeclimate.com/github/andela-anwocha/hana_mvc/badges/gpa.svg)](https://codeclimate.com/github/andela-anwocha/hana_mvc)
 
 Hana is a lightweight portable ruby web framework modelled after Rails and inspired by Sinatra. It is an attempt to understand the awesome features of Rails by reimplementing something similar from scratch.
 
