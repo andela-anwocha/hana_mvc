@@ -2,18 +2,18 @@ module Mocks
   module Controller
     def mock_controller_action(action)
       allow_any_instance_of(subject).to receive(action)
-      allow_any_instance_of(subject).to receive(:render).
-        and_return(controller.response("Response Body"))
+      allow_any_instance_of(subject).to receive(:render)
+        .and_return(controller.response('Response Body'))
     end
 
     def mock_before_action(action, return_value)
-      allow_any_instance_of(subject).to receive(action).
-        and_return(return_value)
+      allow_any_instance_of(subject).to receive(action)
+        .and_return(return_value)
     end
 
     def mock_file_join
-      allow(File).to receive(:join).
-        and_return("spec/support/views/index.html.erb")
+      allow(File).to receive(:join)
+        .and_return('spec/support/views/index.html.erb')
     end
 
     def initialize_class_variables

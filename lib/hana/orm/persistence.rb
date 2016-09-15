@@ -15,7 +15,7 @@ module Hana
       def map_row_to_object(row)
         return nil unless row
         model = new
-        properties.keys.each.with_index(0) do |attribute, index|
+        columns.each.with_index(0) do |attribute, index|
           model.send("#{attribute}=", row[index])
         end
 
@@ -69,8 +69,7 @@ module Hana
     end
 
     def new_record_values
-      values = properties.keys.map { |column| send(column) }
+      values = columns.map { |column| send(column) }
     end
-
   end
 end

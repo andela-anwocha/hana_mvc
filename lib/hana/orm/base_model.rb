@@ -69,9 +69,9 @@ module Hana
       true
     end
 
-    def to_json(args={})
+    def to_json(_args = {})
       object = {}
-      columns.each{ |column| object[column] = send(column) }
+      columns.each { |column| object[column] = send(column) }
       object.to_json
     end
 
@@ -82,6 +82,5 @@ module Hana
         return self.class.send(method_name)
       end
     end
-
   end
 end

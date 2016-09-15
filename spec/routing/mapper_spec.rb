@@ -27,20 +27,20 @@ describe Hana::Routing::Mapper do
     end
   end
 
-  describe "#match_path_with_pattern" do
-    context "when a path matches pattern" do
-      it "returns true" do
-        path = "/todos"
-        expect(mapper.match_path_with_pattern(path, endpoints[:get].first)).
-          to be_truthy
+  describe '#match_path_with_pattern' do
+    context 'when a path matches pattern' do
+      it 'returns true' do
+        path = '/todos'
+        expect(mapper.match_path_with_pattern(path, endpoints[:get].first))
+          .to be_truthy
       end
     end
 
-    context "when a path does not match pattern" do
-      it "returns falsey value" do
-        path = "/todos/1"
-        expect(mapper.match_path_with_pattern(path, endpoints[:get].first)).
-          to be_falsey
+    context 'when a path does not match pattern' do
+      it 'returns falsey value' do
+        path = '/todos/1'
+        expect(mapper.match_path_with_pattern(path, endpoints[:get].first))
+          .to be_falsey
       end
     end
   end

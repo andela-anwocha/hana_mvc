@@ -21,35 +21,32 @@ module Hana
       if args[0].is_a?(Hash) && args[0].key?(:json)
         return json_response(args[0])
       end
-      response(render_template(*args), 200, {"Content-Type" => "text/html"})
+      response(render_template(*args), 200, 'Content-Type' => 'text/html')
     end
 
     def redirect_to(address)
-      response([], 301, "Location" => address)
+      response([], 301, 'Location' => address)
     end
 
     def render_template(view_name, locals = {})
       file_name = File.join('app', 'views', controller_name, "#{view_name}.html.erb")
-      
-      template = Tilt::ERBTemplate.new(file_name)
-      template_data = template.render(self, locals)
+      template = Tilt::ERBTemplate.new(file_name).render(self, locals)
 
       if self.class.layout
         layout_file_name = File.join('app', 'layouts', "#{@@layout_name}.html.erb")
         layout_template = Tilt::ERBTemplate.new(layout_file_name)
-        layout_template.render(self, locals) { template_data }
+        layout_template.render(self, locals) { template }
       else
-        template_data
+        template
       end
     end
 
     def dispatch(action)
-      if handle_before_action(action)
-        send(action)
+      handle_before_action(action)
+      send(action)
 
-        return @response if @response
-        render(action)
-      end
+      return @response if @response
+      render(action)
     end
 
     def self.layout(view_name = nil)
@@ -65,7 +62,7 @@ module Hana
     private
 
     def json_response(args)
-      header = { "Content-Type" => "application/json" }
+      header = { 'Content-Type' => 'application/json' }
       response(args[:json].to_json, args[:status], header)
     end
 
@@ -79,9 +76,7 @@ module Hana
     end
 
     def handle_before_action(action)
-      return send(@@before_action) if before_action?(action)
-      true
+      send(@@before_action) if before_action?(action)
     end
-
   end
 end

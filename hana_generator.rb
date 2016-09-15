@@ -10,10 +10,10 @@ class Generator < Thor::Group
   end
 
   def create_config_file
-    puts "Copying Files"
+    puts 'Copying Files'
   end
 
   def create_app_layout
-    directory(".")
+    directory('.')
   end
 end

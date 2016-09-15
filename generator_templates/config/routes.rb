@@ -1,9 +1,8 @@
 TodoApplication.routes.draw do
-  #Add routes here
+  # Add routes here
 
+  # Examples
 
-  #Examples
-  
   # root "todo#home"   This creates route '/' for TodoController with Home Action
 
   # get '/todo', to: "todo#index" This Creates route '/todo' for TodoController Index Action

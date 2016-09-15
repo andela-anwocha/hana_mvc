@@ -1,12 +1,21 @@
-require_relative 'static_validations'
-
 module Hana
   module Validations
+    attr_accessor :errors
+
     def self.included(base)
-      base.extend Hana::StaticValidations
+      base.extend ClassMethods
     end
 
-    attr_accessor :errors
+    module ClassMethods
+      def validates(column_name, attributes = {})
+        @validators ||= {}
+        @validators[column_name] = OpenStruct.new(attributes)
+      end
+
+      def validators
+        @validators
+      end
+    end
 
     def validate
       validators = self.class.validators
@@ -16,10 +25,6 @@ module Hana
           send("validate_#{key}", column_name, attributes)
         end
       end
-    end
-
-    def validate_uniqueness(_column_name, _attributes)
-      nil
     end
 
     def validate_presence(column_name, _attributes)
@@ -42,7 +47,7 @@ module Hana
 
     def validate_max_length(column_name, attributes)
       max_length = attributes.length[:maximum].to_i
-      
+
       if send(column_name).length > max_length
         error_message = "#{column_name} musn't exceed #{max_length} characters"
         add_error(column_name, error_message)

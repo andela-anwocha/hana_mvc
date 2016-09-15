@@ -21,7 +21,7 @@ module Hana
     end
 
     def update_record_placeholders
-      properties.keys.map { |property| "#{property}=?" }.join(', ')
+      columns.map { |property| "#{property}=?" }.join(', ')
     end
 
     def new_record_placeholders
@@ -52,8 +52,8 @@ module Hana
     end
 
     def properties
-      @properties[:id] = OpenStruct.new({ type: "integer", primary_key: true })
-      @properties[:created_at] = OpenStruct.new({ type: "VARCHAR(10)" })
+      @properties[:id] = OpenStruct.new(type: 'integer', primary_key: true)
+      @properties[:created_at] = OpenStruct.new(type: 'VARCHAR(10)')
       @properties
     end
 

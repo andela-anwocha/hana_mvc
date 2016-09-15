@@ -1,5 +1,3 @@
-require "pry"
-
 module Hana
   module Associations
     def belongs_to(model, options)

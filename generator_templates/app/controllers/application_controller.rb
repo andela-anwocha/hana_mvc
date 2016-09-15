@@ -1,3 +1,3 @@
 class ApplicationController < Hana::Controller
-  layout "application"
+  layout 'application'
 end

@@ -9,3 +9,4 @@
 /tmp/
 **/.DS_Store
 hana-0.1.0.gem
+app.db

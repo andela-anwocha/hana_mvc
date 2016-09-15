@@ -9,7 +9,8 @@ module Hana
         define_method(method_name) do |path, to:|
           path = "/#{path}" unless path[0] = "/"
           klass_and_method = controller_and_action_for(to)
-          @route_data = { path: path,
+          @route_data = { 
+                          path: path,
                           pattern: pattern_for(path),
                           klass_and_method: klass_and_method
                         }
