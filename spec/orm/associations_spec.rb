@@ -5,7 +5,7 @@ describe Hana::Associations do
   end
 
   context '.belongs_to' do
-    before do
+    before(:all) do
       User.class_eval { belongs_to :admin, class_name: 'Admin', foreign_key: 'admin_id' }
       @admin = create(:admin)
       @user = create(:user, admin_id: @admin.id)
@@ -25,7 +25,7 @@ describe Hana::Associations do
   end
 
   context '.has_many' do
-    before do
+    before(:all) do
       Admin.class_eval { has_many :users, class_name: 'User', foreign_key: 'admin_id' }
       @admin = create(:admin)
       @users = create_list(:user, 2, admin_id: @admin.id)

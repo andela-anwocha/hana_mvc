@@ -48,17 +48,18 @@ describe Hana::Controller do
   end
 
   describe '#redirect_to' do
-    before { @response =  controller.redirect_to('/') }
+    let!(:response){ controller.redirect_to('/') }
+
     it 'returns a Rack response' do
-      expect(@response).to be_instance_of(Rack::Response)
+      expect(response).to be_instance_of(Rack::Response)
     end
 
     it 'returns a response with a 301 http status' do
-      expect(@response.status).to eq(301)
+      expect(response.status).to eq(301)
     end
 
     it 'returns a response with a location http header' do
-      expect(@response.header['Location']).to eq('/')
+      expect(response.header['Location']).to eq('/')
     end
   end
 
@@ -152,8 +153,6 @@ describe Hana::Controller do
       end
 
       context "when controller action is not included in 'except' array" do
-        before(:each) { before_action :set_params, except: [:index] }
-
         it 'does not call the before_action method' do
           expect(controller).to_not receive(:set_params)
           controller.dispatch(:index)
