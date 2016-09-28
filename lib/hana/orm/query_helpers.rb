@@ -1,25 +1,5 @@
 module Hana
   module QueryHelpers
-    def create_table
-      Database.execute <<-SQL
-        CREATE TABLE IF NOT EXISTS #{@table_name} (#{table_constraints})
-      SQL
-    end
-
-    def to_table(table_name)
-      @table_name = table_name
-    end
-
-    def property(column_name, constraints = {})
-      @properties ||= {}
-      @properties[column_name] = OpenStruct.new(constraints)
-      attr_accessor column_name
-    end
-
-    def table_name
-      @table_name
-    end
-
     def update_record_placeholders
       columns.map { |property| "#{property}=?" }.join(', ')
     end

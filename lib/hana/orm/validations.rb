@@ -6,17 +6,6 @@ module Hana
       base.extend ClassMethods
     end
 
-    module ClassMethods
-      def validates(column_name, attributes = {})
-        @validators ||= {}
-        @validators[column_name] = OpenStruct.new(attributes)
-      end
-
-      def validators
-        @validators
-      end
-    end
-
     def validate
       validators = self.class.validators
       return unless validators
@@ -80,6 +69,17 @@ module Hana
       error = {}
       error[column_name] = error_message
       errors << error
+    end
+
+    module ClassMethods
+      def validates(column_name, attributes = {})
+        @validators ||= {}
+        @validators[column_name] = OpenStruct.new(attributes)
+      end
+
+      def validators
+        @validators
+      end
     end
   end
 end

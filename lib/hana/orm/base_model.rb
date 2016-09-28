@@ -19,8 +19,39 @@ module Hana
       attributes.each { |column_name, value| send("#{column_name}=", value) }
     end
 
+    def self.create(attributes = {})
+      model = new(attributes)
+      model if model.save
+    end
+
+    def save
+      validate
+      if errors.empty?
+        new_record || update_record
+        reload
+      else
+        false
+      end
+    end
+
+    def update(attributes)
+      attributes.each do |key, value|
+        send("#{key}=", value)
+      end
+      save
+    end
+
     def destroy
       Database.execute "DELETE FROM #{table_name} where id=#{id}"
+    end
+
+    def reload
+      @id ||= (Database.execute 'SELECT last_insert_rowid()')[0][0]
+      columns = Database.execute "SELECT * FROM #{table_name} where id= #{@id}"
+
+      properties.keys.each.with_index(0) do |column, index|
+        send("#{column}=", columns[0][index])
+      end
     end
 
     def self.find(id)
@@ -60,6 +91,26 @@ module Hana
         SELECT * FROM #{table_name} where #{search_place_holders}
       SQL
       rows.map { |row| map_row_to_object(row) }
+    end
+
+    def self.create_table
+      Database.execute <<-SQL
+        CREATE TABLE IF NOT EXISTS #{@table_name} (#{table_constraints})
+      SQL
+    end
+
+    def self.to_table(table_name)
+      @table_name = table_name
+    end
+
+    def self.property(column_name, constraints = {})
+      @properties ||= {}
+      @properties[column_name] = OpenStruct.new(constraints)
+      attr_accessor column_name
+    end
+
+    def self.table_name
+      @table_name
     end
 
     def eql?(model)
