@@ -48,7 +48,7 @@ describe Hana::Controller do
   end
 
   describe '#redirect_to' do
-    let!(:response){ controller.redirect_to('/') }
+    let!(:response) { controller.redirect_to('/') }
 
     it 'returns a Rack response' do
       expect(response).to be_instance_of(Rack::Response)

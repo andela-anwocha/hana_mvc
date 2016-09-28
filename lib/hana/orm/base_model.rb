@@ -109,8 +109,8 @@ module Hana
       attr_accessor column_name
     end
 
-    def self.table_name
-      @table_name
+    class << self
+      attr_reader :table_name
     end
 
     def eql?(model)
