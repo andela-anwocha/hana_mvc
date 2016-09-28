@@ -1,9 +1,4 @@
 describe Hana::Associations do
-  before(:all) do
-    User.destroy_all
-    Admin.destroy_all
-  end
-
   context '.belongs_to' do
     before(:all) do
       User.class_eval { belongs_to :admin, class_name: 'Admin', foreign_key: 'admin_id' }
