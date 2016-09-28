@@ -6,7 +6,6 @@ module Hana
 
     def initialize(request)
       @request ||= request
-      self.class.before_action
     end
 
     def params
@@ -50,13 +49,13 @@ module Hana
     end
 
     def self.layout(view_name = nil)
-      @@layout_name ||= view_name
+      @layout_name ||= view_name
     end
 
     def self.before_action(action_name = nil, attributes = {})
-      @@only ||= attributes[:only]
-      @@except ||= attributes[:except]
-      @@before_action ||= action_name
+      @only ||= attributes[:only]
+      @except ||= attributes[:except]
+      @before_action ||= action_name
     end
 
     private
@@ -67,8 +66,8 @@ module Hana
     end
 
     def before_action?(action)
-      @@before_action && (!@@only || @@only.include?(action)) &&
-        (@@except.nil? || !@@except.include?(action))
+      @before_action && (!@only || @only.include?(action)) &&
+        (@except.nil? || !@except.include?(action))
     end
 
     def controller_name
@@ -76,7 +75,7 @@ module Hana
     end
 
     def handle_before_action(action)
-      send(@@before_action) if before_action?(action)
+      send(@before_action) if before_action?(action)
     end
   end
 end

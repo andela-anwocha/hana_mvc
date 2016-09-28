@@ -96,19 +96,14 @@ describe Hana::Controller do
       before { before_action :set_params, only: [:index] }
 
       it "assigns the action_name and 'only' attributes to class variables" do
-        before_action = subject.class_variable_get(:@@before_action)
-        only = subject.class_variable_get(:@@only)
+        before_action = subject.instance_variable_get(:@before_action)
+        only = subject.instance_variable_get(:@only)
 
         expect(before_action).to eq(:set_params)
         expect(only).to eq([:index])
       end
 
       context "when controller action is included in 'only' attribute" do
-        it 'calls the before_action method' do
-          expect(controller).to receive(:set_params)
-          controller.dispatch(:index)
-        end
-
         context 'when before_action method returns true' do
           it 'calls the controller action method' do
             expect(controller).to receive(:index).at_least(:once)
@@ -140,7 +135,7 @@ describe Hana::Controller do
       before(:each) { before_action :set_params, except: [:index] }
 
       it "assigns the action_name and 'except' attributes to class variables" do
-        except = subject.class_variable_get(:@@except)
+        except = subject.instance_variable_get(:@except)
         expect(except).to eq([:index])
       end
 
@@ -157,11 +152,11 @@ describe Hana::Controller do
       end
 
       context "when controller action is not included in 'except' array" do
-        before { before_action :set_params, except: [:index] }
+        before(:each) { before_action :set_params, except: [:index] }
 
-        it 'calls the before_action method' do
-          expect(controller).to receive(:set_params)
-          controller.dispatch(:home)
+        it 'does not call the before_action method' do
+          expect(controller).to_not receive(:set_params)
+          controller.dispatch(:index)
         end
 
         context 'when before_action method returns true' do

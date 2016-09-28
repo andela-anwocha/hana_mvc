@@ -16,14 +16,14 @@ module Mocks
         .and_return('spec/support/views/index.html.erb')
     end
 
-    def initialize_class_variables
-      subject.class_variable_set(:@@only, nil)
-      subject.class_variable_set(:@@except, nil)
-      subject.class_variable_set(:@@before_action, nil)
+    def initialize_class_instance_variables
+      subject.instance_variable_set(:@only, nil)
+      subject.instance_variable_set(:@except, nil)
+      subject.instance_variable_set(:@before_action, nil)
     end
 
     def before_action(action, attribute)
-      initialize_class_variables
+      initialize_class_instance_variables
       subject.before_action action, attribute
     end
   end
