@@ -10,13 +10,10 @@ require 'hana/routing/route'
 require 'hana/routing/mapper'
 require 'hana/orm/base_model'
 
-
 module Hana
   class Application
-    @@routes = Hana::Routing::Router.new
-
     def self.routes
-      @@routes
+      @@routes ||= Hana::Routing::Router.new
     end
 
     def call(env)

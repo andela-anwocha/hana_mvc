@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require_relative '../hana_cli'
+Hana::Cli.start
